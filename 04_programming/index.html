@@ -50,10 +50,50 @@
   <p> At this stage in the process I began writing my own code now. My goal was to have my dinosaur object spin when the button was pressed and stop spinng when the user took their finger off the button. Below are some code snipbits that helped me to make my project. </p>
 
   <pre><code class="language-arduino">
-  void loop(){
-    int i = 2;
-    int j = 3;
+const int buttonPin = 2;     // the number of the pushbutton pin
+const int ledPin =  13;      // the number of the LED pin
+const int A1A = 3;  // define pin 3 for A-1A 
+const int A1B = 4;  // define pin 4 for A-1B 
+
+// variables will change:
+int lastButtonState;         // read last button state (press)
+int currentButtonState;      // read current button state (press) 
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+
+  // currentButtonstate = digitalRead(buttonPin);
+  
+  pinMode(A1A, OUTPUT);     // specify these pins as outputs
+  pinMode(A1B, OUTPUT);
+  digitalWrite(A1A, LOW);   // start with the motors off 
+  digitalWrite(A1B, LOW);
+}
+
+void loop() {
+  // read the state of the pushbutton value:
+  lastButtonState = currentButtonState;       // remembering the last button press state
+  currentButtonState = digitalRead(buttonPin);  // saving the new state compared to old state
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (lastButtonState == HIGH) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+    // start the motor 
+    digitalWrite(A1A, HIGH);   
+    digitalWrite(A1B, LOW);
+    // delay(2000);  // makes button spin for a certain amount of time
+    // keep delay off for the motor to only spin when button is pressed 
+  } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+    digitalWrite(A1A, LOW);   
+    digitalWrite(A1B, LOW);
   }
+}
   </code></pre> 
 
   <p> I also made some drawings of the final wire set up that I decided to use for my project, as well as the final circuit board design. I am not the best at drawing circuits, so it may seem a little janky, but I tried my best with the physics knowledge that I had stored in the back of my brain! </p>
