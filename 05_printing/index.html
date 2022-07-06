@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="../style.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/arduino-light.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/arduino.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script> 
+
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4></h4>
+      <h4><a class="nav-link" href="../index.html">Home</a></h4>
+      <h4><a class="nav-link" href="../about.html">About</a></h4>
+    </div>
+  </div>
+</nav>
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ### Week 3: Microcontroller programming 
+
+  <p> This week we learned about microcontrolled programming and how circuits work! I learned about circuits this year in my physics class, and will continue to learn about them next year in AP physics, but this was a nice summer refresher. Microcontroller programming with the arduinos, however, was completely new to me.</p>
+
+  <p> The software that we had to use to program the arudino reminded me of python so it seems less scary at first, but then I realized I had no idea how to do any of it. I decided for this week to keep it simple and keep my same dinosaur project from week 3 and have it spin when you press a button. My first couse of action was to fix the motor that I hotglued inside of my box because it stopped working last week. </p>
+
+  ![image of fixing the motor](./fixingmotor1.jpeg)
+  ![image of fixing the motor](./fixingmotor2.jpeg)
+
+  <p> I then went back and did some of the circuit examples from the website. At first, none of the circuits were working for me but I realized I never plugged in the power! These circuits were pretty easy and I decided for my project I was going to expand on these. </p>
+
+  ![image of circuits](./circuits1.jpeg)
+  ![image of circuits](./circuits2.jpeg)
+  ![image of circuits](./circuits3.jpeg)
+
+  <p> In order to write my own code, Kassia helped me look at samples for button use. She showed me the linked website below which really helped. Check it out! </p>
+
+  <p> https://arduinogetstarted.com/tutorials/arduino-button-toggle-led/</p>
+
+  <p> At this stage in the process I began writing my own code now. My goal was to have my dinosaur object spin when the button was pressed and stop spinng when the user took their finger off the button. Below are some code snipbits that helped me to make my project. </p>
+
+  <pre><code class="language-arduino">
+const int buttonPin = 2;     // the number of the pushbutton pin
+const int ledPin =  13;      // the number of the LED pin
+const int A1A = 3;  // define pin 3 for A-1A 
+const int A1B = 4;  // define pin 4 for A-1B 
+
+// variables will change:
+int lastButtonState;         // read last button state (press)
+int currentButtonState;      // read current button state (press) 
+
+void setup() {
+  // initialize the LED pin as an output:
+  pinMode(ledPin, OUTPUT);
+  // initialize the pushbutton pin as an input:
+  pinMode(buttonPin, INPUT);
+
+  // currentButtonstate = digitalRead(buttonPin);
+  
+  pinMode(A1A, OUTPUT);     // specify these pins as outputs
+  pinMode(A1B, OUTPUT);
+  digitalWrite(A1A, LOW);   // start with the motors off 
+  digitalWrite(A1B, LOW);
+}
+
+void loop() {
+  // read the state of the pushbutton value:
+  lastButtonState = currentButtonState;       // remembering the last button press state
+  currentButtonState = digitalRead(buttonPin);  // saving the new state compared to old state
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (lastButtonState == HIGH) {
+    // turn LED on:
+    digitalWrite(ledPin, HIGH);
+    // start the motor 
+    digitalWrite(A1A, HIGH);   
+    digitalWrite(A1B, LOW);
+    // delay(2000);  // makes button spin for a certain amount of time
+    // keep delay off for the motor to only spin when button is pressed 
+  } else {
+    // turn LED off:
+    digitalWrite(ledPin, LOW);
+    digitalWrite(A1A, LOW);   
+    digitalWrite(A1B, LOW);
+  }
+}
+  </code></pre> 
+
+  <p> I also made some drawings of the final wire set up that I decided to use for my project, as well as the final circuit board design. I am not the best at drawing circuits, so it may seem a little janky, but I tried my best with the physics knowledge that I had stored in the back of my brain! </p>
+
+  ![image of drawing](./drawingcircuit1.jpeg)
+  ![image of drawing](./drawingcircuit2.jpeg)
+
+  <p> Once I finally got all my code together and my project assembled I was finally done, or so I thought. My project worked really good, however, the weight distribution was slightly off because one side of the dinosaur was heavier than the other. I decided to remedy this by putting a heavy nut on one side of the dinosaurs feet to distrubute the weight better. </p>
+
+  ![image of final circuit](./finalcircuit1.jpeg)
+  ![image of final circuit](./finalcircuit2.jpeg)
+  ![image of final circuit](./finalcircuit3.jpeg)
+  ![image of final circuit](./finalcircuit4.jpeg)
+
+  <p> This week really taught me that I always should be open to learning new things, and even making changes to something when I think it is perfect.</p>
+
+  ![image of final project](./dinospin.gif)
+
+  Check out my other weekly projects here:	[link](../index.html).
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
