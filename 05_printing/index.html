@@ -40,80 +40,27 @@
   ![image of fish design](./fishdesign2.png)
   ![image of fish design](./fishdesign3.png)
 
-  <p> I then went back and did some of the circuit examples from the website. At first, none of the circuits were working for me but I realized I never plugged in the power! These circuits were pretty easy and I decided for my project I was going to expand on these. </p>
+  <p> After making my designs, I exported my work from OnShape into Prusa. I then took that STL file and simplified it down into a G-code, which gives the printer instructions on how to print the design. The G-code was then moved onto a flashdrive with an SD-card, and that card was then put into the 3d printer. </p>
 
-  ![image of circuits](./circuits1.jpeg)
-  ![image of circuits](./circuits2.jpeg)
-  ![image of circuits](./circuits3.jpeg)
+  ![image of 3d printer](./printer1.jpeg)
 
-  <p> In order to write my own code, Kassia helped me look at samples for button use. She showed me the linked website below which really helped. Check it out! </p>
+  <p> These are downloadable versions of both my G-codes and my STLs:</p>
 
-  <p> https://arduinogetstarted.com/tutorials/arduino-button-toggle-led/</p>
 
-  <p> At this stage in the process I began writing my own code now. My goal was to have my dinosaur object spin when the button was pressed and stop spinng when the user took their finger off the button. Below are some code snipbits that helped me to make my project. </p>
 
-  <pre><code class="language-arduino">
-const int buttonPin = 2;     // the number of the pushbutton pin
-const int ledPin =  13;      // the number of the LED pin
-const int A1A = 3;  // define pin 3 for A-1A 
-const int A1B = 4;  // define pin 4 for A-1B 
 
-// variables will change:
-int lastButtonState;         // read last button state (press)
-int currentButtonState;      // read current button state (press) 
+  <p> Once I loaded up my file, I pressed start and waited the 25 minutes for my fish to be done. The whole point of this assignment was to make something that cannot be easily reproduced by another way of building things, like the laser cutter or any hand tools. In order to fufill this part of the assignment I filleted the edges of the fish around it's head because that could not really be done well with the laser cutter. The filleted edges made the head of the fish look less sharp and more realistic than other parts of the printed fish.</p>
 
-void setup() {
-  // initialize the LED pin as an output:
-  pinMode(ledPin, OUTPUT);
-  // initialize the pushbutton pin as an input:
-  pinMode(buttonPin, INPUT);
+  ![image of fish](./finalfish1.jpeg)
+  ![image of fish](./finalfish2.jpeg)
 
-  // currentButtonstate = digitalRead(buttonPin);
-  
-  pinMode(A1A, OUTPUT);     // specify these pins as outputs
-  pinMode(A1B, OUTPUT);
-  digitalWrite(A1A, LOW);   // start with the motors off 
-  digitalWrite(A1B, LOW);
-}
+  <p> This specifically is the filleted edge on the head:</p>
 
-void loop() {
-  // read the state of the pushbutton value:
-  lastButtonState = currentButtonState;       // remembering the last button press state
-  currentButtonState = digitalRead(buttonPin);  // saving the new state compared to old state
+  ![image of fish](./finalfish4.jpeg)
 
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
-  if (lastButtonState == HIGH) {
-    // turn LED on:
-    digitalWrite(ledPin, HIGH);
-    // start the motor 
-    digitalWrite(A1A, HIGH);   
-    digitalWrite(A1B, LOW);
-    // delay(2000);  // makes button spin for a certain amount of time
-    // keep delay off for the motor to only spin when button is pressed 
-  } else {
-    // turn LED off:
-    digitalWrite(ledPin, LOW);
-    digitalWrite(A1A, LOW);   
-    digitalWrite(A1B, LOW);
-  }
-}
-  </code></pre> 
+  <p> Even though I really onlt added the filleted part to fufill the assignment, I am glad I did in the end. I am actually really happy with how my fish turned out. Since it was so small, I was able to use my fish as a keychain on my lanyard (photo attached below).</p>
 
-  <p> I also made some drawings of the final wire set up that I decided to use for my project, as well as the final circuit board design. I am not the best at drawing circuits, so it may seem a little janky, but I tried my best with the physics knowledge that I had stored in the back of my brain! </p>
-
-  ![image of drawing](./drawingcircuit1.jpeg)
-  ![image of drawing](./drawingcircuit2.jpeg)
-
-  <p> Once I finally got all my code together and my project assembled I was finally done, or so I thought. My project worked really good, however, the weight distribution was slightly off because one side of the dinosaur was heavier than the other. I decided to remedy this by putting a heavy nut on one side of the dinosaurs feet to distrubute the weight better. </p>
-
-  ![image of final circuit](./finalcircuit1.jpeg)
-  ![image of final circuit](./finalcircuit2.jpeg)
-  ![image of final circuit](./finalcircuit3.jpeg)
-  ![image of final circuit](./finalcircuit4.jpeg)
-
-  <p> This week really taught me that I always should be open to learning new things, and even making changes to something when I think it is perfect.</p>
-
-  ![image of final project](./dinospin.gif)
+  ![image of drawing](./finalfish3.jpeg)
 
   Check out my other weekly projects here:	[link](../index.html).
 
