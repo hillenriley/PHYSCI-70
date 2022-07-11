@@ -35,6 +35,31 @@
   ![image of circuit making](./circuitmaking1.jpeg)
   ![image of circuit making](./circuitmaking2.jpeg)
 
+  <p> This was the code that I used to collect my data (all credit goes to Nathan's website!!!!!): </p>
+
+  <pre><code class="language-arduino">
+int analog_pin = A3;
+int tx_pin = 4;
+int read_high;
+int read_low;
+int diff; 
+
+void setup() {
+    pinMode(tx_pin, OUTPUT);      // Pin 4 provides the voltage step
+    Serial.begin(9600);
+}
+
+void loop() {
+    digitalWrite(tx_pin,HIGH);           // Step the voltage high on conductor 1.
+    read_high = analogRead(analog_pin);  // Measure response of conductor 2.
+    delayMicroseconds(100);              // Delay to reach steady state.
+    digitalWrite(tx_pin,LOW);            // Step the voltage to zero on conductor 1.
+    read_low = analogRead(analog_pin);   // Measure response of conductor 2.
+    diff = read_high - read_low;         // desired answer is the difference between high and low.
+    Serial.println(diff);
+}
+  </code></pre>
+
   <p> I also looked at the serial monitor and serial output graph pages in order to get my minimum and maximum values. To get the minimum, I held my pieces of copper very far away from each other, and to get the maximum, I pressed the pieces ontop of each other very close together. </p>
 
   <p> My minimum and maximum values are shown below on the serial outputs: </p> 
@@ -57,6 +82,38 @@
   ![image of making circuits](./makingcircuits3.jpeg)
   ![image of making circuits](./makingcircuits4.jpeg)
 
+  <p> This was the code I used for this sensor (once again all the credit for programming goes to Nathan!!!!): </p>
+
+  <p> The only thing I changed with this code was I added "ln" after the print statement to see the lines for my graph. </p>
+
+  <pre><code class="language-arduino">
+int ThermistorPin = A0;
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+
+void setup() {
+  Serial.begin(9600);           
+}
+
+void loop() {
+
+  Vo = analogRead(ThermistorPin);
+  R2 = R1 * 1/(1023.0 / (float)Vo - 1.0);  //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B*log(R2/R1) ));  // Calculate temperature using datasheet formula.
+  T = T - 273.15;                   //Convert from Kelvin to Celcius.
+
+
+ // Serial.print("Temperature: "); 
+  Serial.println(T);
+ // Serial.println("C"); 
+
+  delay(500);
+}
+  </code></pre>
+
   <p> I used the same process (pretty much) with this sensor in finding the minimum and maximum values. Since this was a temperature sensor, in order to find the minimum, I pressed ice cubes against the senors, and to find the maximum I heated up my hands and put them on the sensor. The only challenging part of this part was finding ice cubes, which thanks to Emma we aquired from the Clover resturant in the lobby of the building.  </p>
 
   ![image of hand](./hothand.jpeg)
@@ -75,6 +132,8 @@
   <p> This was also the graph from the data that I collected: </p>
 
   ![image of graph](./graph3.png)
+
+  <p> I am very glad we learned about electronic input circuits this week because I am planning on using a thermistor in my final project. For my final project, I finally decided I want to make a light that changes based off of body temperature, and in order to do that I will need a temperature sensor that I can attach to a bracelet for the user to wear. I will have to learn more about transmitting data throguh wifi while making my final project, but that is a lesson to learn for the future. </p>
 
   Check out my other weekly projects here:	[link](../index.html).
 
