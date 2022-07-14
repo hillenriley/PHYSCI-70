@@ -125,70 +125,12 @@ void loop() {
   ![image of oscilloscope](./oscope3.jpeg)
   ![image of oscilloscope](./oscope4.jpeg)
 
-  <p> I also was able to get graph values for this circuit. The dips and jumps in the graphs represent when I pressed the pieces together and when I took them apart. This is how they turned out: </p>
+  <p> Reading the oscilloscope was slightly harder. This is how I was able to answer the proposed questions from the assignment: </p>
 
-  ![image of graph](./graph1.png)
-  ![image of graph](./graph2.png)
+  <p> Is it on a fixed clock? </p>
+  <p> What's its speed? </p>
 
-  ### Part Two (Thermistor Sensor)
-
-  <p> The second part of this assignment was to use another sensor to create a similar circuit using outside materials. After looking at the sample codes on the website, I decided to use a thermistor to detect changes in temperature. The circuit was not too hard to build because there was diagrams shown on the website (credit to Nathan's website!) </p>
-
-  ![image of making circuits](./makingcircuits3.jpeg)
-  ![image of making circuits](./makingcircuits4.jpeg)
-
-  <p> This was the code I used for this sensor (once again all the credit for programming goes to Nathan!!!!): </p>
-
-  <p> The only thing I changed with this code was I added "ln" after the print statement to see the lines for my graph. </p>
-
-  <pre><code class="language-arduino">
-int ThermistorPin = A0;
-int Vo;
-float R1 = 10000;
-float R2, T;
-float A = 3.354e-03;
-float B = 2.5698e-4;
-
-void setup() {
-  Serial.begin(9600);           
-}
-
-void loop() {
-
-  Vo = analogRead(ThermistorPin);
-  R2 = R1 * 1/(1023.0 / (float)Vo - 1.0);  //Calculate resistance of thermistor from voltage divider math.
-  T = (1.0 / (A + B*log(R2/R1) ));  // Calculate temperature using datasheet formula.
-  T = T - 273.15;                   //Convert from Kelvin to Celcius.
-
-
- // Serial.print("Temperature: "); 
-  Serial.println(T);
- // Serial.println("C"); 
-
-  delay(500);
-}
-  </code></pre>
-
-  <p> I used the same process (pretty much) with this sensor in finding the minimum and maximum values. Since this was a temperature sensor, in order to find the minimum, I pressed ice cubes against the senors, and to find the maximum I heated up my hands and put them on the sensor. The only challenging part of this part was finding ice cubes, which thanks to Emma we aquired from the Clover resturant in the lobby of the building. To control the range, all I had to do was change what object was touching the temperature sensor (cold ice or hot hand). </p>
-
-  ![image of hand](./hothand.jpeg)
-  ![image of ice](./coldice.jpeg)
-
-  <p> These were the maximum and minimum values that I was able to collect after repeating that process a couple of times: </p>
-
-  #### Minimum (from ice): 15.83 C
-
-  ![image of ice temp](./icetemp2.png)
-
-  #### Maximum (from hand): 30.72 C
-
-  ![image of hand temp](./blowingtemp.png)
-
-  <p> This was also the graph from the data that I collected: </p>
-
-  ![image of graph](./graph3.png)
-
-  <p> I am very glad we learned about electronic input circuits this week because I am planning on using a thermistor in my final project. For my final project, I finally decided I want to make a light that changes based off of body temperature, and in order to do that I will need a temperature sensor that I can attach to a bracelet for the user to wear. I will have to learn more about transmitting data throguh wifi while making my final project, but that is a lesson to learn for the future. </p>
+  ![video of output project](./outputproj.mp4)
 
   Check out my other weekly projects here:	[link](../index.html).
 
