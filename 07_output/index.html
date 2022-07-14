@@ -46,27 +46,61 @@
   <p> My biggest learning curve throughout this whole project, and maybe even the whole class, is the programming language we uae. Coming into this class, I had a little experience with HTML and CSS, but most of my experience came from Python. Arduino programmers, however, use C++, which is completely foreign to me. Below is a snitbit of the code I used from the sample for this project (credit to Nathan's website). </p>
 
   <pre><code class="language-arduino">
-int analog_pin = A3;
-int tx_pin = 4;
-int read_high;
-int read_low;
-int diff; 
+#include <Adafruit_NeoPixel.h>
+
+#define PIN        6
+#define NUMPIXELS 14
+// #define DELAYVAL 500 // Time (in milliseconds) to pause between pixels
+
+int ThermistorPin = A0;
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+
+Adafruit_NeoPixel strip(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 void setup() {
-    pinMode(tx_pin, OUTPUT);      // Pin 4 provides the voltage step
-    Serial.begin(9600);
+  Serial.begin(9600);
+  strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  strip.show();            // Turn OFF all pixels ASAP
+  strip.setBrightness(40); // Set BRIGHTNESS low to reduce draw (max = 255)
 }
 
 void loop() {
-    digitalWrite(tx_pin,HIGH);           // Step the voltage high on conductor 1.
-    read_high = analogRead(analog_pin);  // Measure response of conductor 2.
-    delayMicroseconds(100);              // Delay to reach steady state.
-    digitalWrite(tx_pin,LOW);            // Step the voltage to zero on conductor 1.
-    read_low = analogRead(analog_pin);   // Measure response of conductor 2.
-    diff = read_high - read_low;         // desired answer is the difference between high and low.
-    Serial.println(diff);
+
+  Vo = analogRead(ThermistorPin);
+  R2 = R1 * 1 / (1023.0 / (float)Vo - 1.0); //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B * log(R2 / R1) )); // Calculate temperature using datasheet formula.
+  T = T - 273.15;                   //Convert from Kelvin to Celcius
+  Serial.println(T);
+  strip.clear(); // Set all pixel colors to 'off'
+  // for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      // strip.setPixelColor(i, strip.Color(0, 150, 0));
+  // }
+  if (T <= 37.0) {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(0, 0, 150));
+      strip.show();   // Send the updated pixel colors to the hardware.
+  }} else if (T >= 40.50) {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(150, 0, 0));
+      strip.show();   // Send the updated pixel colors to the hardware.
+  }} else {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(150, 0, 150));
+      strip.show();   // Send the updated pixel colors to the hardware.
+    }}
+
 }
   </code></pre>
+
+  <p>  After figuring out what I wanted the code to do it was pretty simple to write it, with a little bit of help with my syntax from Kassia! My code is basically just saying for the LED to start at room temperature (purple) and then if it detects a temperature larger than 40.50 degrees celsius to change to red, and if a temperature is smaller than 37.0 degrees celsius to change to blue. These colors minmic the normal color patterns, which is something I wanted to do in my final project. </p>
+
+  <p> I also made use of the Adafruit NeoPixel libraries in order to input all of the information about the LED's. Shoutout to NeoPixel!</p>
+
+  <p> At one point, I actually even made my LED strip ombre on accdient. </p>
 
   <p> I also looked at the serial monitor and serial output graph pages in order to get my minimum and maximum values. To get the minimum, I held my pieces of copper very far away from each other, and to get the maximum, I pressed the pieces ontop of each other very close together. In order to control the range, all I had to do was move the pieces closer together and further apart to change the recorded values. </p>
 
