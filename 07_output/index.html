@@ -49,6 +49,8 @@
 
   <p> My biggest learning curve throughout this whole project, and maybe even the whole class, is the programming language we uae. Coming into this class, I had a little experience with HTML and CSS, but most of my experience came from Python. Arduino programmers, however, use C++, which is completely foreign to me. Below is a snitbit of the code I used from the sample for this project. </p>
 
+  ![image of code](./code.png)
+
   <pre><code class="language-arduino">
 #include <Adafruit_NeoPixel.h>
 
@@ -101,6 +103,12 @@ void loop() {
   </code></pre>
 
   <p>  After figuring out what I wanted the code to do it was pretty simple to write it, with a little bit of help with my syntax from Kassia! My code is basically just saying for the LED to start at room temperature (purple) and then if it detects a temperature larger than 40.50 degrees celsius to change to red, and if a temperature is smaller than 37.0 degrees celsius to change to blue. These colors minmic the normal color patterns, which is something I wanted to do in my final project. </p>
+
+  <p> In order to get the ranges for my code, I had to test out the different termperatures and see what the minimum and maximum values were. Last weeks project really helped me out with this part because I knew exactly what i should be looking for. There were the ranges I found for my normal range, my high range, and my low range (shown below in that order): </p>
+
+  ![image of normal range](./middle.png)
+  ![image of high range](./high.png)
+  ![image of low range](./low.png)
 
   <p> I also made use of the Adafruit NeoPixel libraries in order to input all of the information about the LED's. Shoutout to NeoPixel!</p>
 
