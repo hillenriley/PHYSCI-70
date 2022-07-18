@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<title>PHYSCI 70: Intro to Digital Fabrication </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../style.css" rel="stylesheet">
+
+<nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <div style="align-items: left; justify-content:left;" class="container-fluid">
+    <h3 style="margin: 15px"> PHYSCI 70: Intro to Digital Fabrication</h3>
+    <div class="navbar-nav">
+      <h4><a class="nav-link" href="./index.html">Home</a></h4>
+      <h4><a class="nav-link" href="./about.html">About</a></h4>
+      <h4><a class="nav-link" href="./finalproject.html">Final Project</a></h4>
+    </div>
+  </div>
+</nav>
+
+<body>
+
+
+<xmp theme="journal" style="display:none;">
+
+
+
+  ## Week Seven: CNC Milling, Molding, and Casting
+
+  ### Creating a Mold in the ShopBot
+
+  <p> This week we learned about how to use the ShotBot and the CNC machine to create molds and larger wooden shapes. I decided for this week to create a shape in the wax machine and then mold that shape with a material like plaster. This week was definetly the most chaotic out of all of the weeks so far, from the machines breaking to not having enough time, so I was not able to finish this project yet. </p>
+
+  <p> Originally, I made plans to create the mold for a small flower that I would turn into an ice cube tray. I created my small flower design with OnShape (which turned out to be slightly problematic later) and tried to upload my STL file onto the computer attached to the machine. This machine, however, had other plans for me and decided to not accept my file (Suvin can vouch the file was fine it was the sizing), which caused so so many problems in the long run. </p>
+
+   <p> This is a screenshot of my amazing gorgeous flower file that I never got to use because the machine only liked files made in Fusion360: </p> 
+
+  ![image of flower mold](./flower.png)
+
+  <p> After that, I began following the tutorial on Nathan's website in order to have the right wire connections for the LED to light up. </p>
+
+  <p> This part took me three tries to get it to work, and a couple more soldered wires to the LED strip, but I was happy with the result. I even changed the LED's to purple (my favorite color)!! </p> 
+
+  ![image of led](./led.jpeg)
+  ![image of led](./led2.jpeg)
+  ![image of led](./led3.jpeg)
+
+  <p> My biggest learning curve throughout this whole project, and maybe even the whole class, is the programming language we uae. Coming into this class, I had a little experience with HTML and CSS, but most of my experience came from Python. Arduino programmers, however, use C++, which is completely foreign to me. Below is a snitbit of the code I used from the sample for this project. </p>
+
+  ![image of code](./code.png)
+
+  <pre><code class="language-arduino">
+#include <Adafruit_NeoPixel.h>
+
+#define PIN        6
+#define NUMPIXELS 14
+// #define DELAYVAL 500 // Time (in milliseconds) to pause between pixels
+
+int ThermistorPin = A0;
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+
+Adafruit_NeoPixel strip(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  Serial.begin(9600);
+  strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  strip.show();            // Turn OFF all pixels ASAP
+  strip.setBrightness(40); // Set BRIGHTNESS low to reduce draw (max = 255)
+}
+
+void loop() {
+
+  Vo = analogRead(ThermistorPin);
+  R2 = R1 * 1 / (1023.0 / (float)Vo - 1.0); //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B * log(R2 / R1) )); // Calculate temperature using datasheet formula.
+  T = T - 273.15;                   //Convert from Kelvin to Celcius
+  Serial.println(T);
+  strip.clear(); // Set all pixel colors to 'off'
+  // for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      // strip.setPixelColor(i, strip.Color(0, 150, 0));
+  // }
+  if (T <= 37.0) {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(0, 0, 150));
+      strip.show();   // Send the updated pixel colors to the hardware.
+  }} else if (T >= 40.50) {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(150, 0, 0));
+      strip.show();   // Send the updated pixel colors to the hardware.
+  }} else {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(150, 0, 150));
+      strip.show();   // Send the updated pixel colors to the hardware.
+    }}
+
+}
+  </code></pre>
+
+  <p>  After figuring out what I wanted the code to do it was pretty simple to write it, with a little bit of help with my syntax from Kassia! My code is basically just saying for the LED to start at room temperature (purple) and then if it detects a temperature larger than 40.50 degrees celsius to change to red, and if a temperature is smaller than 37.0 degrees celsius to change to blue. These colors minmic the normal color patterns, which is something I wanted to do in my final project. </p>
+
+  <p> In order to get the ranges for my code, I had to test out the different termperatures and see what the minimum and maximum values were. Last weeks project really helped me out with this part because I knew exactly what i should be looking for. There were the ranges I found for my normal range, my high range, and my low range (shown below in that order): </p>
+
+  ![image of normal range](./middle.png)
+  ![image of high range](./high.png)
+  ![image of low range](./low.png)
+
+  <p> I also made use of the Adafruit NeoPixel libraries in order to input all of the information about the LED's. Shoutout to NeoPixel!</p>
+
+  <p> At one point, I actually even made my LED strip ombre on accdient. </p>
+
+  ### Using an oscilloscope
+
+  <p> For this assignment, we also had to use an oscilloscope to discover the time domain in which our output devices were operating at. This was a completely new machine to me, but with Kassia and Suvin's explanations, it became pretty simple. All we had to do was connect one prong to the middle wire, and the other prong to the grounding wire, and read the values shown on the screen. </p>
+
+  <p> This is what mine looked like when I read my values: </p> 
+
+  ![image of oscilloscope](./oscope.jpeg)
+  ![image of oscilloscope](./oscope2.jpeg)
+  ![image of oscilloscope](./oscope3.jpeg)
+  ![image of oscilloscope](./oscope4.jpeg)
+
+  <p> Reading the oscilloscope was slightly harder. This is how I was able to answer the proposed questions from the assignment: </p>
+
+  <p> Is it on a fixed clock? The time domain for this machine showed 20.00μs, which I believe is relating back to the force of friction. I took physics this year and the symbol "μ" is usually representative of the force of friction value. I do not believe this oscilloscope is on a fixed clock because of the fact that we can change all of the values with the buttons and knobs on the side of the machine, but I could be wrong.</p>
+
+  <p> What's its speed? The oscilloscope presented that there was 19.5159 Hz, which I am pretty sure is speed. Herz measures how many cycles an object goes through in one second, so this value would be the closest measured value to speed. </p>
+
+  Here is a video of how my whole project turned out in the end: 
+
+  ![video of output project](./outputproj.mp4)
+
+  <p> The last part of this assignment was to create Fusion (or in my case OnShape) designs for next weeks CNC cutting lesson. I tried making a stand to rest my laptop on while doing homework in my dorm. These were the main designs I came up with: </p>
+
+![image of cnc design](./cnc.png)
+![image of cnc design](./cnc2.png)
+
+
+  Check out my other weekly projects here:	[link](../index.html).
+
+
+</xmp>
+</body>
+
+<script src="https://strapdownjs.com/v/0.2/strapdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" ></script>
+
+</html>
