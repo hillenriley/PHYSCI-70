@@ -23,49 +23,56 @@
 
 
 
-  ## Week Seven: CNC Milling, Molding, and Casting
+  ## Week Eight: Wifi, Radio, and Bluetooth 
 
-  ### Creating a Mold in the ShopBot
+  <p> Disclaimed: this week was very challenging for me because my computer decided not to like working with the Arduino. I was only able to get my project to work with the help of my friend's computer who already had Arduino installed.</p>
 
-  <p> This week we learned about how to use the ShotBot and the CNC machine to create molds and larger wooden shapes. I decided for this week to create a shape in the wax machine and then mold that shape with a material like plaster. This week was definetly the most chaotic out of all of the weeks so far, from the machines breaking to not having enough time, so I was not able to finish this project yet. </p>
+  ### Getting an Output Through a Wireless Network 
 
-  <p> Originally, I made plans to create the mold for a small flower that I would turn into an ice cube tray. I created my small flower design with OnShape (which turned out to be slightly problematic later) and tried to upload my STL file onto the computer attached to the machine. This machine, however, had other plans for me and decided to not accept my file (Suvin can vouch the file was fine it was the sizing), which caused so so many problems in the long run. </p>
+  <p> This week we learned about how to use wifi and radio signals to gather outputs. This week is somwhat building off of what we have done previously, with using inputs to gather desired outputs, but this time it would be over a network. This whole concept, of information moving across wifi and different networks, is actually so amazing and interesting to me because I have never learned about anything like it before. Even though this week was super interesting, it definetly had its faults, and was probably one of the worst weeks for me so far. </p>
 
-   <p> This is a screenshot of my amazing gorgeous flower file that I never got to use because the machine only liked files made in Fusion360: </p> 
+  <p> In past weeks, Arduino was working fine for me while doing projects. For some reason, however, when I went to connect my Arduino IDE to the ESP32 microcontroller, I continually got errors saying that it could not connect. The persistant errors were saying that Arduino's Wifi.h libraries were found in mulitple locations and could not be accessed in the right $PATH, pretty much meaning my ESP32 would not connect.  </p>
 
-  ![image of flower mold](./flower.png)
+   <p> In order to overcome this huge problem, after spending all three hours of class trying to fix it, I decided to use the online web editor version of Arduino. This was all fine until I realized that I needed to be able to connect to a port through the website (specifically the COM4 port) and my Arduino page did not have an option for that setting. </p>
 
-  <p> These are some of the iterations I had to go through to try to </p>
+   ![image of Arduino page](./radio1.jpeg) 
+   ![image of Arduino page](./radio3.jpeg)
 
-  <a download href='./flower!.stl'>Download my STL file </a>
-  <p> </p>
-  <a download href='./flowerflower.stl'>Download my STL file </a>
-  <p> </p>
-  <a download href='./FLOWER.stl'>Download my STL file </a>
-  <p> </p>
+  <p> Me and Kassia spent a long time trying to debug this part of the website, and after about two paintful hours, we realized it was a problem with the downloads being in the wrong browser and a problem with thr actual download agents. After the long haul of finally trying to get my Arduino to work, I was in business to start the assignment. </p>
 
-  <p> After I had to accept defeat with my flower mold, I decided just to print a simple design of a heart that was already loaded into the wax machine software (credit to emma for the design!!!). This part of the process was still tricky because this software had one of the most confusing set ups that I have ever seen in my whole life. Suvin had to help me for most of this part, but after a couple of tries I was able to get my wax mold.</p>
+  <p> I began working on this assignment outside of the lab time, because I had spent all of my time trying to debug my problem, when my friend decided to inform me that his computer had Arduino installed. Just for fun I tried connecting the ESP32 to his computer to see if he would have the same error as me, and he ended up not getting it. Sebastian graciously let me use his computer to try to work on this assignment because the Arduino web IDE was lacking.</p>
 
-  <p> Here is a small timeline of pictures of me carving the wax: </p>
+   ![image of Arduino](./radio2.jpeg) 
+   ![image of Arduino](./radio4.jpeg)
+   ![image of Arduino](./radio8.jpeg) 
 
-  ![image of timeline 1](./timeline1.jpeg)
-  ![image of timeline 2](./timeline2.jpeg)
-  ![image of timeline 3](./timeline3.jpeg)
-  ![image of timeline 4](./timeline4.jpeg)
+  <p> Once I began working with the actual Arduino, things went pretty quick. The assignment for this week was to "Control a board from a local wireless network." and then to " "Program a microcontroller to obtain and respond to information from the internet." which was pretty simple with the RnadomNerd tutorials that Nathan provided for us.</p> 
 
-  <p> And this was the final product from the wax machine: </p> 
+  <p> This is the website to the RandomNerd tutorials:</p>
 
-  ![image of final wax cut](./timeline5.jpeg)
+  <p> https://randomnerdtutorials.com/projects-esp32/</p>
 
-  <p> Even though this part of the assigment was very long and time consuming (and honestly stressful for everyone), I understand the importance of learning how to use these machines. I realized I probably should have just cut something out of wood on the CNC machine (even though that ended up breaking too) from the start because then I could have avoided the whole wax machine debacle, but I am happy with how my project turned out so far. </p>
+  <p> And this is the link to the more specific RandomNerd tutorial that I used for my project this week:</p>
 
-  <p> I feel like this week also taught me the importance of understanding the mechanics behind the machines you are using. Even though I may not be the most techy person ever, I think now I have a better understanding of how to operate both of these machines, and how to debug them incase of an issue in the future. </p>
+  <p> https://randomnerdtutorials.com/esp32-web-server-arduino-ide/</p>
 
-  ### Casting a Mold
+  <p> Following the tutorial was really easy, even though it was really long. The tutorial actually even provided me with code that would work for my Arduino completely, and I only had to change a couple of things. </p>
 
-  <p> For this part of the assignment, we had to cast a mold for an object. We could either use the mold we created with the wax machine, or freely cast an object in a plastic cup. Since I already had a piece cut out on the wax machine, I decided to cast a mold using my little heart (still heartbroken about my flower). On the instructional day, Nathan showed us how to use the chemicals and powder to create molds, but when it came time to do it for myself I was rather confused. </p>
+  <p> CODE </p>
 
-  <p> My first order of business was to cut small slits in my mold on the sides of the heart because they never fully reached the side. I did this by using a box cutter to slit the sides of the wax, which was pretty easy considering the medium. </p> 
+  <p> Since I was not working within the MAKERSPACE wifi range, I also had my friend make a wifi network from his computer, which allowed me to connect mhy Arduino to it and get the IP adress. </p>
+
+  ![image of Wifi Network](./radio7.jpeg) 
+  ![image of IP Adress](./radio6.jpeg) 
+
+  <p> This is a little timeline of me following the tutorial: </p>
+
+  ![image of Arduino](./radio9.jpeg) 
+  ![image of Arduino](./radio10.jpeg)
+  ![image of Arduino](./radio11.jpeg) 
+  ![image of Arduino](./radio12.jpeg) 
+
+  <p> As shown in the above photos, the output of this project was to have the different LED lights change based on the input from the website. This was actually the coolest part because I realized I could contol the lights from any device, so I plugged in the IP adress into my friends phone and started turning them on and off from that. </p> 
 
   ![image of cutting wax](./cuttingwax.jpeg)
 
