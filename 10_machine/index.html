@@ -38,7 +38,7 @@
 
   <p> I also used the sample code listed on the website to push to my stepper motor. The only thing I really had to change from this sample was the delay value, from 50 to 30, to make the motor spin faster. This was the first sample that I used: </p>
 
-    <pre><code class="language-arduino">
+<pre><code class="language-arduino">
 const int stepPin = 13;
 const int dirPin = 12;
 
@@ -57,11 +57,11 @@ void loop() {
   digitalWrite(stepPin, HIGH);
   delay(30);
 }
-  </code></pre>
+</code></pre>
 
   <p> This is another version of the same code, but this time it came directly from the Arduino website:</p>
 
-      <pre><code class="language-arduino">
+<pre><code class="language-arduino">
 
 #include <Stepper.h>
 
@@ -89,7 +89,7 @@ void loop() {
   myStepper.step(-stepsPerRevolution);
   delay(500);
 }
-  </code></pre>
+</code></pre>
 
   <p> I began working on this assignment outside of the lab time, because I had spent all of my time trying to debug my problem, when my friend decided to inform me that his computer had Arduino installed. Just for fun I tried connecting the ESP32 to his computer to see if he would have the same error as me, and he ended up not getting it. Sebastian graciously let me use his computer to try to work on this assignment because the Arduino web IDE was lacking.</p>
 
