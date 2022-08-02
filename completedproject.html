@@ -25,16 +25,72 @@
 
 
   ## Thermo Light
-  ### Completed Final Project Documentation
+  #### Completed Final Project Documentation
 
   <p> My final project is the Thermo Light. </p>
 
-  #### Completed Project Video
-  #### Materials Included
-  #### Wiring Diagrams
-  #### Arduino LED Code
-  #### Future Changes
-  #### Reflection Process
+  ### Completed Project Video 
+  <p> </p>
+  ### Materials Included
+  <p> </p>
+  ### Wiring Diagrams
+  <p> </p>
+  ### Arduino LED Code
+  <pre><code class="language-arduino">
+// Adafruit NeoPixel - Version: Latest 
+#include <Adafruit_NeoPixel.h>
+
+#include <Adafruit_NeoPixel.h>
+
+#define PIN        6
+#define NUMPIXELS 60
+
+int ThermistorPin = A0;
+int Vo;
+float R1 = 10000;
+float R2, T;
+float A = 3.354e-03;
+float B = 2.5698e-4;
+
+Adafruit_NeoPixel strip(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
+void setup() {
+  Serial.begin(9600);
+  strip.begin(); // INITIALIZE NeoPixel strip object (REQUIRED)
+  strip.show();            // Turn OFF all pixels ASAP
+  strip.setBrightness(100); // Set BRIGHTNESS low to reduce draw (max = 255)
+}
+
+void loop() {
+
+  Vo = analogRead(ThermistorPin);
+  R2 = R1 * 1 / (1023.0 / (float)Vo - 1.0); //Calculate resistance of thermistor from voltage divider math.
+  T = (1.0 / (A + B * log(R2 / R1) )); // Calculate temperature using datasheet formula.
+  T = T - 273.15;                   //Convert from Kelvin to Celcius
+  Serial.println(T);
+  // strip.clear(); // Set all pixel colors to 'off'
+  // for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      // strip.setPixelColor(i, strip.Color(0, 150, 0));
+  // }
+  if (T <= 22.71) {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(12,64,168));
+      strip.show();   // Send the updated pixel colors to the hardware.
+  }} else if (T >= 22.73) {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color(183,208,255));
+      strip.show();   // Send the updated pixel colors to the hardware.
+  }} else {
+    for (int i = 0; i < NUMPIXELS; i++) { // For each pixel...
+      strip.setPixelColor(i, strip.Color (108,148,230));
+      strip.show();   // Send the updated pixel colors to the hardware.
+    }}
+
+}
+  </code></pre>
+  ### Future Changes
+   <p> </p>
+  ### Reflection Process
 
   Check out my other weekly projects here:  [link](../index.html).
 
